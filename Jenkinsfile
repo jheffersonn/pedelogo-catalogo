@@ -30,6 +30,15 @@ pipeline{
                 }
             }
         }
+
+        stage(''){
+            steps{
+                withKubeConfig([credentialId:'admin.config']){
+                    sh 'kubectl apply -f ./deployment.yaml'
+                }
+
+            }
+        }
         
     }
 }
