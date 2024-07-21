@@ -3,8 +3,8 @@ pipeline{
 
     stages{
         stage('Inicial'){
-            step{
-                echo 'Teste e pipeline e'
+            steps{
+                echo 'Teste e pipeline'
             }
         }
     }
