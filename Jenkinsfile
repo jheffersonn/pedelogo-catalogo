@@ -9,5 +9,14 @@ pipeline{
             }
         }
 
+        stage('Docker Build'){
+            steps{
+                script{
+                    dockerapp = docker.build("jeffersondevops/pedelogo-catalogo:${env.BUILD_ID}",
+                        '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
+                }
+                
+            }
         }
+    }
 }
