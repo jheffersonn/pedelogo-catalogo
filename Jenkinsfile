@@ -1,6 +1,15 @@
 /* primeira pipeline */
 
 pipeline{
+    
+    /*
+    environment {
+      imagename = "harshmanvar/node-web-app"
+      registryCredential = 'docker'
+      dockerImage = ''
+    }
+    */
+    
     agent any
 
     stages{
@@ -8,6 +17,10 @@ pipeline{
         stage('Get Source'){
             steps{
                 git url: 'https://github.com/jheffersonn/pedelogo-catalogo.git', branch: 'main'
+
+                /*
+                git([url: 'https://github.com/harsh4870/node-js-aws-cloudbuild-basic-ci-cd.git', branch: 'main', credentialsId: 'github'])
+                */
             }
         }
 
@@ -18,7 +31,11 @@ pipeline{
                     dockerapp = docker.build("jeffersondevops/pedelogo-catalogo:${env.BUILD_ID}",
                         '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                 }
-                
+                /*
+                script {
+                    dockerImage = docker.build imagename
+                }
+                */
             }
         }
 
@@ -32,6 +49,16 @@ pipeline{
                         dockerapp.push("${env.BUILD_ID}")
 
                     }
+
+                /*
+                script {
+                    docker.withRegistry( '', registryCredential ) {
+                        dockerImage.push("$BUILD_NUMBER")
+                        dockerImage.push('latest')
+
+                    }
+
+                    */
                 }
             }
         }
@@ -39,9 +66,15 @@ pipeline{
         stage('Deploy Kubernetes'){
             
             steps{
-                withKubeConfig([credentialsId: 'kubernetes']){
+                
+                sh "cat ./deployment.yaml"
+                sh "kubectl --kubeconfig=/home/prevcom/kubeconfig get pods"
+                sh "kubectl --kubeconfig=/home/prevcom/kubeconfig ./deployment.yaml"
+              
+              /*  withKubeConfig([credentialsId: 'kubernetes']){
                     sh 'kubectl apply -f ./deployment.yaml'
-                }
+                
+                }*/
             }
         }
     
