@@ -20,7 +20,7 @@ pipeline{
             }
         }
 
-/*
+
         stage('Docker Push Image'){
             
             steps{
@@ -33,7 +33,7 @@ pipeline{
                 }
             }
         }
-
+/*
         stage('Deploy Kubernetes'){
             
             steps{
