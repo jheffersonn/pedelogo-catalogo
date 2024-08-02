@@ -20,6 +20,7 @@ pipeline{
             }
         }
 
+/*
         stage('Docker Push Image'){
             
             steps{
@@ -41,6 +42,6 @@ pipeline{
                 }
             }
         }
-
+    */
     }
 }
