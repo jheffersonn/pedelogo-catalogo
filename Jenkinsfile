@@ -1,3 +1,5 @@
+/* primeira pipeline */
+
 pipeline{
     agent any
 
@@ -33,7 +35,7 @@ pipeline{
                 }
             }
         }
-/*
+
         stage('Deploy Kubernetes'){
             
             steps{
@@ -42,6 +44,6 @@ pipeline{
                 }
             }
         }
-    */
+    
     }
 }
