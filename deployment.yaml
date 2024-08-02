@@ -18,10 +18,10 @@ spec:
         - containerPort: 27017
         resources: {}
         env:
-          - name: MONGO_INITDB_ROOT_USERNAME
-            value: mongodbuser
-          - name: MONGO_INITDB_ROOT_PASSWORD
-            value: mongodbpwd
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: mongodbuser
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          value: mongodbpwd
 ---
 apiVersion: v1
 kind: Service
@@ -42,11 +42,11 @@ spec:
   selector:
     matchLabels:
       app: api
-  template: 
-    metadata:       
+  template:
+    metadata:
       labels:
         app: api
-    spec:            
+    spec:
       containers:
       - name: api
         image: kubedevio/api-produto:v1
@@ -54,8 +54,8 @@ spec:
         - containerPort: 80
         imagePullPolicy: Always
         env:
-          - name: MONGODB_URI
-            value: mongodb://mongodbuser:mongodbpwd@mongo-service:27017/admin
+        - name: MONGODB_URI
+          value: mongodb://mongodbuser:mongodbpwd@mongo-service:27017/admin
         livenessProbe:
           httpGet:
             path: /health
