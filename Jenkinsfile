@@ -11,9 +11,10 @@ pipeline{
         }
 
         stage('Docker Build'){
-            echo 'Docker Build...'
+
             steps{
                 script{
+                    echo 'Docker Build...'
                     dockerapp = docker.build("jeffersondevops/pedelogo-catalogo:${env.BUILD_ID}",
                         '-f ./src/PedeLogo.Catalogo.Api/Dockerfile .')
                 }
@@ -22,9 +23,10 @@ pipeline{
         }
 
         stage('Docker Push Image'){
-            echo 'Docker Push Image...'
+            
             steps{
                 script{
+                    echo 'Docker Push Image...'
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub' ){
                         dockerapp.push('latest')
                         dockerapp.push("${env.BUILD_ID}")
@@ -35,8 +37,9 @@ pipeline{
         }
 
         stage('Deploy Kubernetes'){
-            echo 'Deploy Kubernetes...'
+            
             steps{
+                echo 'Deploy Kubernetes...'
                 withKubeConfig([credentialsId: 'kubeconfig']){
                     sh 'kubectl apply -f ./deployment.yaml'
                 }
