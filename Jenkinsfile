@@ -4,12 +4,14 @@ pipeline{
     stages{
         
         stage('Get Source'){
+            echo 'Get Source...'
             steps{
                 git url: 'https://github.com/jheffersonn/pedelogo-catalogo.git', branch: 'main'
             }
         }
 
         stage('Docker Build'){
+            echo 'Docker Build...'
             steps{
                 script{
                     dockerapp = docker.build("jeffersondevops/pedelogo-catalogo:${env.BUILD_ID}",
@@ -20,6 +22,7 @@ pipeline{
         }
 
         stage('Docker Push Image'){
+            echo 'Docker Push Image...'
             steps{
                 script{
                     docker.withRegistry('https://registry.hub.docker.com', 'dockerhub' ){
