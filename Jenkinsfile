@@ -69,7 +69,7 @@ pipeline{
                 
                 sh "cat ./deployment.yaml"
                 sh "kubectl --kubeconfig=/home/prevcom/kubeconfig get pods"
-                sh "kubectl --kubeconfig=/home/prevcom/kubeconfig ./deployment.yaml"
+                sh "kubectl --kubeconfig=/home/prevcom/kubeconfig apply -f ./deployment.yaml"
               
               /*  withKubeConfig([credentialsId: 'kubernetes']){
                     sh 'kubectl apply -f ./deployment.yaml'
